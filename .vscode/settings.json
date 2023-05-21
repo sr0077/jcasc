@@ -1,0 +1,12 @@
+{
+    "ansible.python.interpreterPath": "c:\\Python311\\python.exe",
+    "git-autoconfig.configList": [
+        {
+             "user.email": "77750sr@gmail.com",
+             "user.name": "sr0077"
+         },
+         {
+             "user.email": "hnmn.mgr4@gmail.com",
+             "user.name": "mgr4"
+         }],
+}
