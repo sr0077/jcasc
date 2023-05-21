@@ -10,8 +10,12 @@
 name: Publish on docker.io and ghcr.io
 
 on:
-  release:
-    types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Bump Version
+        default: v1.0.0
+        required: true
 
 jobs:
   push_to_registries:
