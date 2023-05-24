@@ -21,7 +21,7 @@ services:
 
 
   jenkins-master:
-    # image: jcasc-jenkins:latest
+    # image: jenkins:latest
     build:
       context: .
     restart: always
@@ -34,11 +34,11 @@ services:
       - ./keys:/var/jenkins_home/.ssh
       - jenkins_home:/var/jenkins_home
       - ./config:/var/jenkins_config
-      - jenkins-docker-certs:/certs/client:ro
+      # - jenkins-docker-certs:/certs/client:ro
     environment:
-      - DOCKER_HOST=tcp://docker:2376
-      - DOCKER_CERT_PATH=/certs/client
-      - DOCKER_TLS_VERIFY=1
+      # - DOCKER_HOST=tcp://docker:2376
+      # - DOCKER_CERT_PATH=/certs/client
+      # - DOCKER_TLS_VERIFY=1
       - CASC_JENKINS_CONFIG=/var/jenkins_config
       - JENKINS_ADMIN_ID=${ENV_JENKINS_ADMIN_ID}
       - JENKINS_ADMIN_PASSWORD=${ENV_JENKINS_ADMIN_PASSWORD} 
@@ -65,7 +65,7 @@ services:
     volumes:
       - ./keys:/var/lib/jenkins/.ssh
       - jenkins-docker-certs:/certs/client:ro
-      # - /var/run/docker.sock:/var/run/docker.sock #aka "docker socket volume mapping"
+      # - /var/run/docker.sock:/var/run/docker.sock 
     networks:
       jenkins-net:
         aliases:

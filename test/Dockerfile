@@ -1,12 +1,19 @@
-FROM jenkins/jenkins:lts
+FROM jenkins/jenkins:2.387.3-lts-alpine
+
 USER root
-RUN apt-get update && apt-get install -y lsb-release
-RUN curl -fsSLo /usr/share/keyrings/docker-archive-keyring.asc \
-  https://download.docker.com/linux/debian/gpg
-RUN echo "deb [arch=$(dpkg --print-architecture) \
-  signed-by=/usr/share/keyrings/docker-archive-keyring.asc] \
-  https://download.docker.com/linux/debian \
-  $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list
-RUN apt-get update && apt-get install -y docker-ce-cli
+
+# Switch back to the Jenkins user
 USER jenkins
-RUN jenkins-plugin-cli --plugins "blueocean docker-workflow"
+
+# Disable Jenkins setup wizard
+ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
+
+# Specify Jenkins home directory
+ENV JENKINS_HOME /var/jenkins_home
+
+# Copy plugin list file
+COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
+
+# Install Jenkins plugins
+RUN jenkins-plugin-cli -f /usr/share/jenkins/ref/plugins.txt --verbose
+
