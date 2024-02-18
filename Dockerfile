@@ -1,5 +1,4 @@
-FROM jenkins/jenkins:2.387.3-lts-alpine
-
+FROM jenkins/jenkins:lts-alpine-jdk17
 USER root
 
 # Switch back to the Jenkins user
